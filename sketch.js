@@ -29,7 +29,7 @@ async function setup() {
 
     let cloud = {
       buffer: buf,
-      x: width * random(0.5),
+      x: -width * random(0.5),
       y: random(height * 0.15),
       speed: random(0.1, 1.2),
       w: random(width / 7, width / 5),
@@ -56,7 +56,7 @@ function draw() {
   background(135, 206, 235);
 
   // --- Continuous drift for the text ---
-  textOffsetX += 0.5 + sin(frameCount * 0.01);
+  textOffsetX += 0.75 + sin(frameCount * 0.01);
   textOffsetY += random(-0.05, 0.05);
 
   // Reset text when off-screen
@@ -85,7 +85,7 @@ function draw() {
   }
 
   // --- Draw particles ---
-  drawMaskedParticles(cloudParticles, textBuffer, 0.8);
+  drawMaskedParticles(cloudParticles, textBuffer, 0.5);
   for (let c of ambientClouds) {
     drawMaskedParticles(ambientParticles, c.buffer, 0.3);
   }
@@ -98,7 +98,7 @@ function makeParticle() {
   return {
     x: random(width),
     y: random(height),
-    r: random(5, height / 20),
+    r: random(2, height / 18),
     speed: random(0.001, 0.9),
     offset: random(TWO_PI),
     alpha: 0,
