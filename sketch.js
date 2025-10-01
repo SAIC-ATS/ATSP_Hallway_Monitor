@@ -27,7 +27,7 @@ async function setup() {
     buf.pixelDensity(1);
     ambientClouds.push({
       buffer: buf,
-      x: width / 4 - random(width / 2),
+      x: width / 4 - random(width * 0.9),
       y: random(height * 0.15),
       speed: random(0.1, 1.5),
       w: random(width / 7, width / 5),
