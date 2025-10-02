@@ -76,8 +76,8 @@ function draw() {
   textSize(22);
   text(
     "HALLWAY MONITOR OPEN CALL \nfor moving image work\n",
-    padding + placeholderHeight + 20,
-    height - placeholderHeight
+    padding + placeholderHeight + 10,
+    height - placeholderHeight + 15
   );
   textStyle(NORMAL);
   textSize(16);
