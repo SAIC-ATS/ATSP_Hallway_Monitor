@@ -80,7 +80,7 @@ function draw() {
     height - placeholderHeight + 15
   );
   textStyle(NORMAL);
-  textSize(16);
+  textSize(18);
   text(
     "Submit : \nhttps://bit.ly/atsp-hall-monitor",
     padding + placeholderHeight + 10,
