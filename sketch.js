@@ -2,8 +2,8 @@ let cloudParticles = []; // particles that form the OPEN CALL text
 let textBuffer;
 let textOffsetX = 0;
 let textOffsetY = 0;
-let dx = 0.8; // horizontal velocity
-let dy = 0.6; // vertical velocity
+let dx = 0.6; // horizontal velocity
+let dy = 0.4; // vertical velocity
 let img;
 
 async function setup() {
