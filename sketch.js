@@ -20,6 +20,7 @@ async function setup() {
   for (let i = 0; i < 20000; i++) {
     cloudParticles.push(makeParticle());
   }
+  noStroke();
 }
 
 function draw() {
@@ -91,7 +92,7 @@ function makeParticle() {
   return {
     x: random(width),
     y: random(height),
-    r: random(1, height / 15),
+    r: random(1, height / 18),
     alpha: 0,
     fadeSpeed: random(0.02, 1),
     fadeOutSpeed: random(1, 4),
