@@ -21,6 +21,7 @@ async function setup() {
     cloudParticles.push(makeParticle());
   }
   noStroke();
+  noCursor();
 }
 
 function draw() {
