@@ -98,8 +98,9 @@ function makeParticle() {
     fadeSpeed: random(0.02, 1),
     fadeOutSpeed: random(1, 4),
     offset: random(TWO_PI),
-    vx: random(-0.5, 0.5), // give particles their own drift
+    vx: random(-0.5, 0.5),
     vy: random(-0.3, 0.3),
+    lifespan: 255, // NEW
   };
 }
 
@@ -121,8 +122,10 @@ function drawMaskedParticles(particles, buffer, maxAlpha = 0.5) {
 
     if (inMask) {
       p.alpha = min(255, p.alpha + p.fadeSpeed);
+      p.lifespan = 255; // refresh lifespan when inside text
     } else {
       p.alpha = max(0, p.alpha - p.fadeOutSpeed);
+      p.lifespan -= 2; // shrink lifespan while fading out
     }
 
     if (p.alpha > 0) {
@@ -133,6 +136,16 @@ function drawMaskedParticles(particles, buffer, maxAlpha = 0.5) {
         p.y + cos(frameCount * 0.01 + p.offset) * p.r * 0.3,
         p.r
       );
+
+      // Remove & respawn if dead
+      if (p.lifespan <= 0) {
+        p.x = random(width);
+        p.y = random(height);
+        p.vx = random(-0.5, 0.5);
+        p.vy = random(-0.3, 0.3);
+        p.alpha = 0;
+        p.lifespan = 255;
+      }
     }
 
     // Wrap particles if off screen and invisible
