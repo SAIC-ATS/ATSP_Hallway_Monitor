@@ -138,7 +138,7 @@ function drawMaskedParticles(particles, buffer, maxAlpha = 0.5) {
       );
 
       // Remove & respawn if dead
-      if (p.lifespan <= 0) {
+      if (p.lifespan <= 0 && p.alpha <= 0) {
         p.x = random(width);
         p.y = random(height);
         p.vx = random(-0.5, 0.5);
