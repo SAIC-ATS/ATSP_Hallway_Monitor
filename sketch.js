@@ -56,7 +56,7 @@ function draw() {
 
   // --- Placeholder for image and text in bottom-left corner ---
   let padding = 20;
-  let placeholderHeight = height * 0.16;
+  let placeholderHeight = height * 0.2;
 
   push();
   blendMode(MULTIPLY);
@@ -73,14 +73,14 @@ function draw() {
   fill(255, 200);
   textAlign(LEFT, TOP);
   textStyle(BOLD);
-  textSize(20);
+  textSize(22);
   text(
     "HALLWAY MONITOR OPEN CALL \nfor moving image work\n",
     padding + placeholderHeight + 10,
     height - placeholderHeight
   );
   textStyle(NORMAL);
-  textSize(14);
+  textSize(16);
   text(
     "Submit : \nhttps://bit.ly/atsp-hall-monitor",
     padding + placeholderHeight + 10,
@@ -127,7 +127,7 @@ function drawMaskedParticles(particles, buffer, maxAlpha = 0.5) {
 
     if (p.alpha > 0) {
       noStroke();
-      fill(255, p.alpha * maxAlpha);
+      fill(240, p.alpha * maxAlpha);
       ellipse(
         p.x + sin(frameCount * 0.01 + p.offset) * p.r * 0.3,
         p.y + cos(frameCount * 0.01 + p.offset) * p.r * 0.3,
