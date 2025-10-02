@@ -104,7 +104,7 @@ function makeParticle() {
 }
 
 // --- Draw particles using a mask (buffer), respecting wind reversals ---
-function drawMaskedParticles(particles, buffer, maxAlpha = 0.8) {
+function drawMaskedParticles(particles, buffer, maxAlpha = 0.5) {
   for (let p of particles) {
     // Move according to particle velocities
     p.x += p.vx;
