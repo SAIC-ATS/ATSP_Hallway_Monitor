@@ -2,7 +2,7 @@ let cloudParticles = []; // particles that form the OPEN CALL text
 let textBuffer;
 let textOffsetX = 0;
 let textOffsetY = 0;
-let dx = 1.2; // horizontal velocity
+let dx = 0.8; // horizontal velocity
 let dy = 0.6; // vertical velocity
 let img;
 
