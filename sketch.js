@@ -2,7 +2,7 @@ let cloudParticles = []; // particles that form the OPEN CALL text
 let textBuffer;
 let textOffsetX = 0;
 let textOffsetY = 0;
-let dx = 0.6; // horizontal velocity
+let dx = 0.3; // horizontal velocity
 let dy = 0.4; // vertical velocity
 let img;
 
@@ -17,7 +17,7 @@ async function setup() {
   drawTextBuffer();
 
   // --- Text-based cloud particles ---
-  for (let i = 0; i < 20000; i++) {
+  for (let i = 0; i < 10000; i++) {
     cloudParticles.push(makeParticle());
   }
   noStroke();
@@ -26,9 +26,9 @@ async function setup() {
 
 function draw() {
   background(135, 206, 235);
-
+  let s = sin(frameCount * 0.001) / 100;
   // --- Bounce logic (like DVD logo) ---
-  textOffsetX += dx;
+  textOffsetX += dx - s;
   textOffsetY += dy;
 
   let margin = 80; // keeps text away from edges
@@ -37,14 +37,12 @@ function draw() {
   // Check for bounce on X
   if (textOffsetX > width / 4 - margin || textOffsetX < -width / 4 + margin) {
     dx *= -1;
-    // Reverse all particle speeds on X too (wind shift)
     for (let p of cloudParticles) p.vx *= -1;
   }
 
   // Check for bounce on Y
   if (textOffsetY > height / 5 || textOffsetY < -height / 5) {
     dy *= -1;
-    // Reverse all particle speeds on Y too
     for (let p of cloudParticles) p.vy *= -1;
   }
 
@@ -52,7 +50,7 @@ function draw() {
   textBuffer.loadPixels();
 
   // --- Draw OPEN CALL cloud particles ---
-  drawMaskedParticles(cloudParticles, textBuffer, 0.8);
+  drawMaskedParticles(cloudParticles, textBuffer, 0.3);
 
   // --- Placeholder for image and text in bottom-left corner ---
   let padding = 20;
@@ -93,14 +91,14 @@ function makeParticle() {
   return {
     x: random(width),
     y: random(height),
-    r: random(1, height / 18),
+    r: random(5, height / 20),
     alpha: 0,
-    fadeSpeed: random(0.02, 1),
-    fadeOutSpeed: random(1, 4),
+    fadeSpeed: random(0.5, 3),
+    fadeOutSpeed: random(5, 10),
     offset: random(TWO_PI),
-    vx: random(-0.5, 0.5),
-    vy: random(-0.3, 0.3),
-    lifespan: 255, // NEW
+    vx: random(-0.3, 0.3),
+    vy: random(-0.2, 0.2),
+    lifespan: 255,
   };
 }
 
@@ -141,10 +139,9 @@ function drawMaskedParticles(particles, buffer, maxAlpha = 0.5) {
       if (p.lifespan <= 0 && p.alpha <= 0) {
         p.x = random(width);
         p.y = random(height);
-        p.vx = random(-0.5, 0.5);
-        p.vy = random(-0.3, 0.3);
+        p.vx = random(-0.3, 0.3);
         p.alpha = 0;
-        p.lifespan = 255;
+        p.lifespan = 256;
       }
     }
 
