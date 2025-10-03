@@ -6,7 +6,7 @@ let dx = 0.1; // horizontal velocity
 let dy = 0.4; // vertical velocity
 let img;
 let resetCycle = 36000;
-let fadeWindow = 40;
+let fadeWindow = 60;
 let fading;
 
 async function setup() {
@@ -95,17 +95,7 @@ function draw() {
 
   // Every 10 minutes at 60fps (~36000 frames), reset particles
   if (cycleProgress === 0) {
-    fade = false;
-    textBuffer.remove(); // free GPU memory
-    textBuffer = createGraphics(width, height);
-    textBuffer.pixelDensity(1);
-    drawTextBuffer();
-    textBuffer.loadPixels();
-
-    cloudParticles = [];
-    for (let i = 0; i < 6000; i++) {
-      cloudParticles.push(makeParticle());
-    }
+    window.location.reload();
   } else {
     drawMaskedParticles(cloudParticles, textBuffer, 0.3);
   }
