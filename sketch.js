@@ -2,14 +2,20 @@ let cloudParticles = []; // particles that form the OPEN CALL text
 let textBuffer;
 let textOffsetX = 0;
 let textOffsetY = 0;
-let dx = 0.3; // horizontal velocity
+let dx = 0.1; // horizontal velocity
 let dy = 0.4; // vertical velocity
 let img;
+let resetCycle = 36000;
+let fadeWindow = 40;
+let fading;
 
 async function setup() {
   img = await loadImage("./qr_code.png");
 
-  createCanvas(windowWidth, windowHeight);
+  let cnv = createCanvas(windowWidth, windowHeight);
+  let ctx = cnv.canvas.getContext("2d", { willReadFrequently: true });
+  // replace the default context with this one
+  cnv.drawingContext = ctx;
   textFont("Poppins"); // description font
   textBuffer = createGraphics(width, height);
   textBuffer.pixelDensity(1);
@@ -17,7 +23,7 @@ async function setup() {
   drawTextBuffer();
 
   // --- Text-based cloud particles ---
-  for (let i = 0; i < 10000; i++) {
+  for (let i = 0; i < 9000; i++) {
     cloudParticles.push(makeParticle());
   }
   noStroke();
@@ -25,6 +31,9 @@ async function setup() {
 }
 
 function draw() {
+  let cycleProgress = frameCount % resetCycle;
+  fading = cycleProgress > resetCycle - fadeWindow;
+
   background(135, 206, 235);
   let s = sin(frameCount * 0.001) / 100;
   // --- Bounce logic (like DVD logo) ---
@@ -32,7 +41,6 @@ function draw() {
   textOffsetY += dy;
 
   let margin = 80; // keeps text away from edges
-  let textBounds = width * 0.3; // approximate width of OPEN CALL text
 
   // Check for bounce on X
   if (textOffsetX > width / 4 - margin || textOffsetX < -width / 4 + margin) {
@@ -46,11 +54,11 @@ function draw() {
     for (let p of cloudParticles) p.vy *= -1;
   }
 
-  drawTextBuffer();
-  textBuffer.loadPixels();
-
-  // --- Draw OPEN CALL cloud particles ---
-  drawMaskedParticles(cloudParticles, textBuffer, 0.3);
+  if (frameCount % 30 === 0) {
+    // update every 30 frames (~0.5s at 60fps)
+    drawTextBuffer();
+    textBuffer.loadPixels();
+  }
 
   // --- Placeholder for image and text in bottom-left corner ---
   let padding = 20;
@@ -84,6 +92,23 @@ function draw() {
     padding + placeholderHeight + 10,
     height - placeholderHeight / 2
   );
+
+  // Every 10 minutes at 60fps (~36000 frames), reset particles
+  if (cycleProgress === 0) {
+    fade = false;
+    textBuffer.remove(); // free GPU memory
+    textBuffer = createGraphics(width, height);
+    textBuffer.pixelDensity(1);
+    drawTextBuffer();
+    textBuffer.loadPixels();
+
+    cloudParticles = [];
+    for (let i = 0; i < 6000; i++) {
+      cloudParticles.push(makeParticle());
+    }
+  } else {
+    drawMaskedParticles(cloudParticles, textBuffer, 0.3);
+  }
 }
 
 // --- Particle factory ---
@@ -117,8 +142,9 @@ function drawMaskedParticles(particles, buffer, maxAlpha = 0.5) {
       let idx = 4 * (py * buffer.width + px);
       if (buffer.pixels[idx] > 128) inMask = true;
     }
-
-    if (inMask) {
+    if (fading) {
+      p.alpha = max(0, p.alpha - 5);
+    } else if (inMask) {
       p.alpha = min(255, p.alpha + p.fadeSpeed);
       p.lifespan = 255; // refresh lifespan when inside text
     } else {
