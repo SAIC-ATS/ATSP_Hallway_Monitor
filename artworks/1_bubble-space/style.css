@@ -1,0 +1,12 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+canvas {
+  display: block;
+  position: fixed;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain;
+  background-color: #000;
+}

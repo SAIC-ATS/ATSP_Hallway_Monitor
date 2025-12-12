@@ -1,0 +1,47 @@
+{
+  "name": "hallway-monitor-player",
+  "version": "1.0.0",
+  "description": "Automated art installation player for hallway monitor",
+  "main": "player/main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --no-sandbox",
+    "build": "electron-builder --mac",
+    "build:dmg": "electron-builder --mac --dmg",
+    "copy-to-desktop": "./copy-to-desktop.sh",
+    "install-deps": "npm install"
+  },
+  "keywords": [
+    "art",
+    "installation",
+    "electron",
+    "kiosk"
+  ],
+  "author": "",
+  "license": "MIT",
+  "build": {
+    "appId": "com.saic.hallway-monitor-player",
+    "productName": "Hallway Monitor Player",
+    "mac": {
+      "category": "public.app-category.entertainment",
+      "target": [
+        "dir"
+      ]
+    },
+    "files": [
+      "player/**/*",
+      "1_bubble-space/**/*",
+      "2_love-hospital/**/*",
+      "3_sound-food/**/*",
+      "4_space-pet/**/*",
+      "playlist.json"
+    ],
+    "directories": {
+      "output": "dist"
+    }
+  },
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.13.3"
+  }
+}

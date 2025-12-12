@@ -1,0 +1,27 @@
+[
+  {
+    "id": 1,
+    "name": "Bubble Space",
+    "type": "web",
+    "path": "artworks/1_bubble-space/index.html",
+    "duration": 180
+  },
+  {
+    "id": 2,
+    "name": "Love Hospital",
+    "type": "video",
+    "path": "artworks/2_love-hospital/bbip_2.mp4"
+  },
+  {
+    "id": 3,
+    "name": "Sound Food",
+    "type": "video",
+    "path": "artworks/3_sound-food/Sound Food.mp4"
+  },
+  {
+    "id": 4,
+    "name": "Space Pet",
+    "type": "video",
+    "path": "artworks/4_space-pet/LilyGregoire_SpacePet.mp4"
+  }
+]

@@ -1,0 +1,15 @@
+node_modules/
+.DS_Store
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.electron
+dist/
+build/
+*.log
+
+# Artwork folders
+artworks/2_love-hospital/bbip_2.mp4
+artworks/3_sound-food/Sound_Food.mp4
+artworks/4_space-pet/LilyGregoire_SpacePet.mp4
